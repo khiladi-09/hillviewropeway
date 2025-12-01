@@ -243,42 +243,59 @@
             </div>
         </div>
     </section>
-
-    <section class="section" style="text-align: center;">
-        <h2>Glimpses of the Journey</h2>
-        <div class="gallery-grid" style="margin-top: 2rem;">
-            <div class="gallery-item"><img src="3.jpg" alt="Tehri Ropeway Station"></div>
-            <div class="gallery-item"><img src="6.jpg" alt="High View"></div>
-            <div class="gallery-item"><img src="1.jpg" alt="Scenic Ride"></div>
-        </div>
-        <div class="view-all-btn-container">
-            <a href="photos.html" class="view-all-btn">View All Photos →</a>
-        </div>
-    </section>
-
     <section class="section" id="contact" style="background-color: #f9f9f9;">
         <h2 style="text-align: center;">Find Us & Contact</h2>
-        <p style="text-align: center; margin-bottom: 3rem; color: #666;">Have questions? Reach out to us or navigate directly to the station.</p>
+        <p style="text-align: center; margin-bottom: 3rem; color: #666;">Have questions? Fill the form below to send message directly on WhatsApp.</p>
 
         <div class="contact-container">
+            
             <div class="contact-left">
-                <form class="contact-form">
+                <form class="contact-form" id="whatsappForm">
                     <div class="form-group">
                         <label>Your Name</label>
-                        <input type="text" placeholder="Enter your name">
+                        <input type="text" id="waName" placeholder="Enter your name" required>
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" placeholder="Your mobile number">
+                        <input type="tel" id="waPhone" placeholder="Your mobile number" required>
                     </div>
                     <div class="form-group">
                         <label>Message</label>
-                        <textarea rows="4" placeholder="How can we help you?"></textarea>
+                        <textarea rows="4" id="waMessage" placeholder="How can we help you?" required></textarea>
                     </div>
-                    <button type="submit" class="btn-submit">Send Message</button>
+                    <button type="submit" class="btn-submit" style="background-color: #25D366;">Send on WhatsApp 💬</button>
                 </form>
 
-                <div class="contact-details">
+                <script>
+                    document.getElementById('whatsappForm').addEventListener('submit', function(event) {
+                        event.preventDefault(); // फॉर्म को साधारण तरीके से सबमिट होने से रोकें
+
+                        // 1. फॉर्म से वैल्यू उठाएं
+                        var name = document.getElementById('waName').value;
+                        var phone = document.getElementById('waPhone').value;
+                        var message = document.getElementById('waMessage').value;
+
+                        // 2. आपका WhatsApp नंबर (बिना + के, 91 के साथ)
+                        var yourNumber = "918449463881"; 
+
+                        // 3. मैसेज तैयार करें ( \n का मतलब नई लाइन है )
+                        var fullMessage = "New Inquiry from Website: \n\n" +
+                                          "*Name:* " + name + "\n" +
+                                          "*Phone:* " + phone + "\n" +
+                                          "*Message:* \n" + message;
+
+                        // 4. मैसेज को लिंक के लिए एनकोड करें
+                        var encodedMessage = encodeURIComponent(fullMessage);
+
+                        // 5. फाइनल WhatsApp लिंक बनाएं
+                        var whatsappUrl = "https://wa.me/" + yourNumber + "?text=" + encodedMessage;
+
+                        // 6. नई टैब में लिंक खोलें
+                        window.open(whatsappUrl, '_blank');
+                    });
+                </script>
+
+                <div class="contact-details" style="margin-top: 2rem;">
                     <div class="contact-item">
                         <div class="contact-icon">📍</div>
                         <div>
@@ -307,8 +324,23 @@
                 </iframe>
                 <p style="margin-top: 10px; font-size: 0.9rem; color: #666; text-align:right;">*Located just across the Tehri Lake.</p>
             </div>
+
         </div>
     </section>
+
+    <section class="section" style="text-align: center;">
+        <h2>Glimpses of the Journey</h2>
+        <div class="gallery-grid" style="margin-top: 2rem;">
+            <div class="gallery-item"><img src="3.jpg" alt="Tehri Ropeway Station"></div>
+            <div class="gallery-item"><img src="6.jpg" alt="High View"></div>
+            <div class="gallery-item"><img src="1.jpg" alt="Scenic Ride"></div>
+        </div>
+        <div class="view-all-btn-container">
+            <a href="photos.html" class="view-all-btn">View All Photos →</a>
+        </div>
+    </section>
+
+
 
     <footer>
         <p>© 2024 Tehri Ropeway Services | Tipari Madan Negi</p>
