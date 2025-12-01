@@ -1,60 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hill View Ropeway</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tehri Ropeway - Tipari Madan Negi</title>
+    <style>
+        /* FONTS */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        /* COLORS */
+        :root {
+            --primary: #006994; /* Deep Teal Blue */
+            --secondary: #48CAE4; /* Light Blue */
+            --accent: #E63946; /* Ropeway Red */
+            --dark: #1d3557;
+            --light: #f1faee;
+            --text-grey: #444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-grey); background-color: var(--light); line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(255,255,255,0.95);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 1px; }
+        .nav-links a { margin-left: 2rem; text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--accent); }
+        .btn-book { background: var(--accent); color: white !important; padding: 0.6rem 1.8rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); }
+        .btn-book:hover { transform: translateY(-2px); background: #d62828; }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            /* Placeholder image - Replace with your 62907.jpg */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('62907.jpg'); 
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
+            padding: 0 1rem;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); line-height: 1.2; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 2.5rem; font-weight: 300; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        .cta-btn {
+            background: var(--accent); color: white; padding: 1rem 2.8rem; text-decoration: none;
+            font-size: 1.1rem; border-radius: 50px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4); border: 2px solid var(--accent);
+        }
+        .cta-btn:hover { transform: translateY(-3px); background: transparent; border-color: white; }
+
+        /* SECTIONS GENERAL */
+        .section { padding: 6rem 10%; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; position: relative; display: inline-block; }
+        
+        /* ABOUT */
+        .about { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
+        .about-text { flex: 1; min-width: 300px; }
+        .about-img { flex: 1; min-width: 300px; position: relative; }
+        .about-img img { width: 100%; border-radius: 20px; box-shadow: 20px 20px 0px rgba(0, 105, 148, 0.1); }
+        .about-text p { margin-bottom: 1.5rem; color: #555; text-align: justify; }
+
+        /* FEATURES */
+        .features { background: white; text-align: center; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+        .feature-card { padding: 2.5rem; background: #fff; border-radius: 20px; transition: 0.3s; border: 1px solid #eee; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--secondary); }
+        .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+        /* TIMING & PRICE (GLASSMORPHISM) */
+        .info-section { 
+            background: linear-gradient(135deg, var(--primary), var(--dark)); 
+            color: white; 
+            position: relative; overflow: hidden;
+        }
+        /* Decorative circle behind */
+        .info-section::before {
+            content: ''; position: absolute; top: -100px; left: -100px; width: 300px; height: 300px;
+            background: rgba(255,255,255,0.1); border-radius: 50%;
+        }
+
+        .info-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; margin-top: 3rem; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3rem 2rem; border-radius: 25px;
+            width: 350px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .glass-card:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.15); }
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 2rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 2px; }
+        .time-block { margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+        .price-tag { font-size: 3.5rem; font-weight: 700; color: #ffadad; margin: 1rem 0; line-height: 1; }
+        .note { font-size: 0.85rem; opacity: 0.9; font-style: italic; color: #caf0f8; margin-top: 1rem;}
+
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 3rem; }
+        .gallery-item { height: 280px; overflow: hidden; border-radius: 12px; cursor: pointer; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item::after {
+            content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.2); opacity: 0; transition: 0.3s;
+        }
+        .gallery-item:hover::after { opacity: 1; }
+
+        /* CONTACT & MAP */
+        .contact-container { display: flex; flex-wrap: wrap; gap: 3rem; justify-content: space-between; margin-top: 3rem; }
+        .contact-left, .contact-right { flex: 1; min-width: 300px; }
+        
+        .contact-form { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary); font-size: 0.9rem;}
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 1rem; border: 2px solid #f0f0f0; border-radius: 10px;
+            font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s; background: #fafafa;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--secondary); background: #fff; }
+        .btn-submit {
+            background: var(--dark); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; 
+            font-size: 1rem; cursor: pointer; transition: 0.3s; width: 100%; font-weight: 600;
+        }
+        .btn-submit:hover { background: var(--accent); }
+
+        .contact-details { margin-top: 2rem; }
+        .contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 1.5rem; font-size: 1rem; color: #555; }
+        .contact-icon { 
+            background: #e0f7fa; color: var(--primary); width: 45px; height: 45px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem;
+        }
+        .map-frame { width: 100%; height: 450px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: none;}
+
+        /* FOOTER */
+        footer { background: var(--dark); color: white; text-align: center; padding: 3rem 1rem; margin-top: auto; }
+        footer p { opacity: 0.7; font-size: 0.9rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Simplified for mobile */
+            .section { padding: 4rem 5%; }
+            .about { flex-direction: column-reverse; }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Hill View Ropeway</h1>
+
     <nav>
-      <a href="#gallery">Gallery</a>
-      <a href="#timing">Timings</a>
-      <a href="#price">Tickets</a>
-      <a href="#contact">Contact</a>
-      <a href="#location">Location</a>
+        <div class="logo">Tehri Ropeway</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+            <a href="#info" class="btn-book">Plan Visit</a>
+        </div>
     </nav>
-  </header>
 
-  <section id="gallery">
-    <h2>Ropeway Gallery</h2>
-    <div class="gallery">
-      <img src="Images/rope1.jpg" alt="Ropeway Image" />
-    </div>
-  </section>
+    <section class="hero" id="home">
+        <h1>Experience Tehri<br>Like Never Before</h1>
+        <p>A 360° journey over the majestic Tehri Lake & Himalayas. Witness history, nature, and engineering marvel in one ride.</p>
+        <a href="#info" class="cta-btn">Check Timings & Fare</a>
+    </section>
 
-  <section id="timing">
-    <h2>Ropeway Timings</h2>
-    <p><strong>1 April – 30 September:</strong> 8:00 AM to 5:30 PM</p>
-    <p><strong>1 October – 31 March:</strong> 8:30 AM to 5:00 PM</p>
-  </section>
+    <section class="section about" id="about">
+        <div class="about-img">
+            <img src="62917.jpg" alt="Ropeway Cabin View">
+        </div>
+        <div class="about-text">
+            <h2>The Journey Above the Clouds</h2>
+            <p>Welcome to the <strong>Tipari Madan Negi Ropeway</strong>. This isn't just a ride; it's a gateway to the glorious history of Tehri and a tribute to the villages that sacrificed for the Dam.</p>
+            <p>Spanning approximately <strong>1 KM</strong> across the vast Tehri Lake, this 10-minute journey offers breathtaking views of the Dam, the Himalayan ranges, and the submerged history of the old city.</p>
+            <p>Enjoy a comfortable cabin ride, click amazing photos, and savor brunch with a scenic view at our station.</p>
+        </div>
+    </section>
 
-  <section id="price">
-    <h2>Ticket Price</h2>
-    <p><strong>All Passengers (Up & Down):</strong> ₹150</p>
-  </section>
+    <section class="section features">
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🏔️</div>
+                <h3>360° Panoramic View</h3>
+                <p>Unmatched views of Tehri Dam, the Lake, and the majestic Himalayan ranges.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🚠</div>
+                <h3>1 Km Aerial Ride</h3>
+                <p>A thrilling 10-minute ride connecting Tipari and Madan Negi across the water.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">☕</div>
+                <h3>Nature & Brunch</h3>
+                <p>The perfect spot to relax, eat, and observe the glorious history of Tehri.</p>
+            </div>
+        </div>
+    </section>
 
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <ul>
-      <li><a href="tel:+918449463881">+91 84494 63881</a></li>
-      <li><a href="tel:+919759841695">+91 97598 41695</a></li>
-      <li><a href="tel:+917579149316">+91 75791 49316</a></li>
-    </ul>
-</section>
+    <section class="section info-section" id="info">
+        <h2 style="text-align: center; color: white;">Plan Your Visit</h2>
+        <div class="info-container">
+            
+            <div class="glass-card">
+                <h3>🕒 Operating Hours</h3>
+                <div class="time-block">
+                    <strong style="color: #fff;">Summer (1 Apr - 30 Sep)</strong><br>
+                    <span style="color: #eee;">8:00 AM to 5:30 PM</span>
+                </div>
+                <div class="time-block" style="border:none;">
+                    <strong style="color: #fff;">Winter (1 Oct - 31 Mar)</strong><br>
+                    <span style="color: #eee;">8:30 AM to 5:00 PM</span>
+                </div>
+            </div>
 
-  <section id="location">
-    <h2>Location</h2>
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.131942730301!2d88.36554501543069!3d22.571498885149522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f89d63d5f10f2d%3A0x3a574e5ad1d8d30a!2sRopeway!5e0!3m2!1sen!2sin!4v1701386582973!5m2!1sen!2sin"
-      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-    </iframe>
-  </section>
+            <div class="glass-card" style="border-top: 5px solid var(--accent);">
+                <h3>🎟️ Ticket Fare</h3>
+                <div class="price-tag">₹150</div>
+                <p>Per Person (One Way)</p>
+                <p class="note">*Children below 110cm height travel for FREE.</p>
+            </div>
 
-  <footer>
-    <p>&copy; 2025 Hill View Ropeway. All rights reserved.</p>
-  </footer>
+        </div>
+    </section>
+
+    <section class="section" id="gallery">
+        <h2 style="text-align: center;">Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="62915.jpg" alt="Tehri Ropeway Station"></div>
+            <div class="gallery-item"><img src="62909.jpg" alt="Ropeway Over Lake"></div>
+            <div class="gallery-item"><img src="62919.jpg" alt="Tehri Lake View"></div>
+            <div class="gallery-item"><img src="62905.jpg" alt="High View"></div>
+            <div class="gallery-item"><img src="62913.jpg" alt="Station Entrance"></div>
+            <div class="gallery-item"><img src="62907.jpg" alt="Scenic Ride"></div>
+        </div>
+    </section>
+
+    <section class="section" id="contact" style="background-color: #f9f9f9;">
+        <h2 style="text-align: center;">Find Us & Contact</h2>
+        <p style="text-align: center; margin-bottom: 3rem; color: #666;">Have questions? Reach out to us or navigate directly to the station.</p>
+
+        <div class="contact-container">
+            
+            <div class="contact-left">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="Your mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="4" placeholder="How can we help you?"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Location:</strong><br>
+                            Tehri Ropeway, Tipari Madan Negi,<br>
+                            Across Tehri Dam, Uttarakhand 249124
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong>Call Us:</strong><br>
+                            <a href="tel:+918449463881" style="text-decoration:none; color:inherit; font-weight:600;">+91 84494 63881</a><br>
+                            <a href="tel:+918865895990" style="text-decoration:none; color:inherit; font-weight:600;">+91 88658 95990</a><br>
+                            <a href="tel:+917579149316" style="text-decoration:none; color:inherit; font-weight:600;">+91 75791 49316</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-right">
+                <iframe 
+                    class="map-frame"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3436.425988220038!2d78.4885067!3d30.3795265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3908d34d3346925d%3A0x6bdad6f3cc534405!2sTehri%20ropeway%2C%20Tipari%20Madan%20Negi%2C%20Tehri!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                    allowfullscreen="" loading="lazy">
+                </iframe>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #666; text-align:right;">*Located just across the Tehri Lake.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Tehri Ropeway Services | Tipari Madan Negi</p>
+        <p>Come experience the beauty of Uttarakhand.</p>
+    </footer>
+
 </body>
 </html>
