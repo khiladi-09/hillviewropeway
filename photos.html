@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Gallery - Tehri Ropeway</title>
     <style>
-        /* --- SAME STYLES FROM BASE index.html FOR CONSISTENCY --- */
+        /* --- CSS STYLES (UPDATED WITH PHOTO FIX) --- */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
         :root {
-            --primary: #006994; --secondary: #48CAE4; --accent: #E63946;
-            --dark: #1d3557; --light: #f1faee; --text-grey: #444;
+            --primary: #006994; /* Deep Teal Blue */
+            --secondary: #48CAE4; /* Light Blue */
+            --accent: #E63946; /* Ropeway Red */
+            --dark: #1d3557;
+            --light: #f1faee;
+            --text-grey: #444;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body { font-family: 'Poppins', sans-serif; color: var(--text-grey); background-color: var(--light); line-height: 1.6; }
 
         /* NAVIGATION */
@@ -25,52 +30,145 @@
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 1px; }
         .nav-links a { margin-left: 2rem; text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
-        /* Active state for current page */
         .nav-links a.active { color: var(--accent); font-weight: 700; }
-        
         .btn-book { background: var(--accent); color: white !important; padding: 0.6rem 1.8rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); }
         .btn-book:hover { transform: translateY(-2px); background: #d62828; }
 
-        /* PAGE HEADER (Smaller hero for sub-pages) */
-        .page-header {
-            height: 50vh;
-            /* Using one of your existing images for header background */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('3.jpg'); 
-            background-size: cover; background-position: center;
-            display: flex; justify-content: center; align-items: center;
-            color: white; text-align: center;
-            margin-top: 60px; /* Space for fixed navbar */
+        /* PAGE HEADER & HERO */
+        .hero, .page-header {
+            height: 100vh; /* Default for home */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('1.jpg'); 
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
+            padding: 0 1rem;
         }
-        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        /* Sub-page header adjustment */
+        .page-header { height: 50vh; margin-top: 60px; background-image: url('3.jpg'); }
 
-        /* GALLERY GRID STYLES */
-        .section { padding: 5rem 10%; }
-        /* Using auto-fill for responsiveness with many photos */
-        .full-gallery-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 25px; margin-top: 3rem; 
+        .hero h1, .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); line-height: 1.2; }
+        .page-header h1 { font-size: 3rem; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 2.5rem; font-weight: 300; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        .cta-btn {
+            background: var(--accent); color: white; padding: 1rem 2.8rem; text-decoration: none;
+            font-size: 1.1rem; border-radius: 50px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4); border: 2px solid var(--accent);
         }
+        .cta-btn:hover { transform: translateY(-3px); background: transparent; border-color: white; }
+
+        /* SECTIONS GENERAL */
+        .section { padding: 6rem 10%; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; position: relative; display: inline-block; }
+        
+        /* ABOUT SECTION - FIX APPLIED HERE */
+        .about { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
+        .about-text { flex: 1; min-width: 300px; }
+        .about-img { 
+            flex: 1; min-width: 300px; position: relative; 
+            border-radius: 20px; /* Border radius moves to container */
+            overflow: hidden; /* Ensures image stays inside border */
+            box-shadow: 20px 20px 0px rgba(0, 105, 148, 0.1);
+        }
+        .about-img img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; /* --- THE MAGIC FIX --- Ensures photo fills space perfectly */
+            display: block; /* Removes small gap at bottom */
+        }
+        .about-text p { margin-bottom: 1.5rem; color: #555; text-align: justify; }
+
+        /* FEATURES */
+        .features { background: white; text-align: center; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+        .feature-card { padding: 2.5rem; background: #fff; border-radius: 20px; transition: 0.3s; border: 1px solid #eee; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--secondary); }
+        .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+        /* TIMING & PRICE */
+        .info-section { 
+            background: linear-gradient(135deg, var(--primary), var(--dark)); 
+            color: white; position: relative; overflow: hidden;
+        }
+        .info-section::before {
+            content: ''; position: absolute; top: -100px; left: -100px; width: 300px; height: 300px;
+            background: rgba(255,255,255,0.1); border-radius: 50%;
+        }
+        .info-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; margin-top: 3rem; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 3rem 2rem; border-radius: 25px;
+            width: 350px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); transition: 0.3s;
+        }
+        .glass-card:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.15); }
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 2rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 2px; }
+        .time-block { margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+        .price-tag { font-size: 3.5rem; font-weight: 700; color: #ffadad; margin: 1rem 0; line-height: 1; }
+        .note { font-size: 0.85rem; opacity: 0.9; font-style: italic; color: #caf0f8; margin-top: 1rem;}
+
+        /* GALLERY GRIDS - FIX APPLIED HERE */
+        .gallery-grid, .full-gallery-grid { display: grid; gap: 15px; margin-top: 3rem; }
+        .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .full-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+
         .gallery-item { 
-            height: 280px; overflow: hidden; border-radius: 15px; cursor: pointer; position: relative; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s;
+            height: 250px; /* Fixed height for home gallery */
+            overflow: hidden; border-radius: 12px; cursor: pointer; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s;
         }
-        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
+        /* Adjustment for full gallery page items */
+        .full-gallery-grid .gallery-item { height: 280px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .gallery-item:hover { transform: translateY(-5px); }
 
+        .gallery-item img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; /* --- THE MAGIC FIX --- Ensures photo fills space perfectly */
+            transition: 0.6s ease; display: block;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        
+        .view-all-btn-container { text-align: center; margin-top: 2rem; }
+        .view-all-btn {
+            display: inline-block; padding: 0.8rem 2rem; border: 2px solid var(--primary); color: var(--primary);
+            text-decoration: none; border-radius: 50px; font-weight: 600; transition: 0.3s;
+        }
+        .view-all-btn:hover { background: var(--primary); color: white; }
+
+        /* CONTACT & MAP */
+        .contact-container { display: flex; flex-wrap: wrap; gap: 3rem; justify-content: space-between; margin-top: 3rem; }
+        .contact-left, .contact-right { flex: 1; min-width: 300px; }
+        .contact-form { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary); font-size: 0.9rem;}
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 1rem; border: 2px solid #f0f0f0; border-radius: 10px;
+            font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s; background: #fafafa;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--secondary); background: #fff; }
+        .btn-submit {
+            background: var(--dark); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; 
+            font-size: 1rem; cursor: pointer; transition: 0.3s; width: 100%; font-weight: 600;
+        }
+        .btn-submit:hover { background: var(--accent); }
+        .contact-details { margin-top: 2rem; }
+        .contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 1.5rem; font-size: 1rem; color: #555; }
+        .contact-icon { 
+            background: #e0f7fa; color: var(--primary); width: 45px; height: 45px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem;
+        }
+        .map-frame { width: 100%; height: 450px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: none;}
+        
         /* FOOTER */
         footer { background: var(--dark); color: white; text-align: center; padding: 3rem 1rem; margin-top: auto; }
-        
+        footer p { opacity: 0.7; font-size: 0.9rem; }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .page-header h1 { font-size: 2rem; }
-            .section { padding: 3rem 5%; }
+            .hero h1, .page-header h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } 
+            .section { padding: 4rem 5%; }
+            .about { flex-direction: column-reverse; }
+            .gallery-item { height: 200px; }
             .full-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
-            .gallery-item { height: 180px; }
         }
     </style>
+
 </head>
 <body>
 
