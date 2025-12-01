@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Tehri Ropeway</title>
+    <style>
+        /* --- SAME STYLES FROM BASE index.html FOR CONSISTENCY --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        :root {
+            --primary: #006994; --secondary: #48CAE4; --accent: #E63946;
+            --dark: #1d3557; --light: #f1faee; --text-grey: #444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-grey); background-color: var(--light); line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(255,255,255,0.95);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 1px; }
+        .nav-links a { margin-left: 2rem; text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--accent); }
+        /* Active state for current page */
+        .nav-links a.active { color: var(--accent); font-weight: 700; }
+        
+        .btn-book { background: var(--accent); color: white !important; padding: 0.6rem 1.8rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); }
+        .btn-book:hover { transform: translateY(-2px); background: #d62828; }
+
+        /* PAGE HEADER (Smaller hero for sub-pages) */
+        .page-header {
+            height: 50vh;
+            /* Using one of your existing images for header background */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('3.jpg'); 
+            background-size: cover; background-position: center;
+            display: flex; justify-content: center; align-items: center;
+            color: white; text-align: center;
+            margin-top: 60px; /* Space for fixed navbar */
+        }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+
+        /* GALLERY GRID STYLES */
+        .section { padding: 5rem 10%; }
+        /* Using auto-fill for responsiveness with many photos */
+        .full-gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; margin-top: 3rem; 
+        }
+        .gallery-item { 
+            height: 280px; overflow: hidden; border-radius: 15px; cursor: pointer; position: relative; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s;
+        }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        /* FOOTER */
+        footer { background: var(--dark); color: white; text-align: center; padding: 3rem 1rem; margin-top: auto; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .page-header h1 { font-size: 2rem; }
+            .section { padding: 3rem 5%; }
+            .full-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+            .gallery-item { height: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Tehri Ropeway</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="photos.html" class="active">Gallery</a>
+            <a href="index.html#contact">Contact</a>
+            <a href="index.html#info" class="btn-book">Plan Visit</a>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <h1>Our Photo Gallery</h1>
+    </section>
+
+    <section class="section">
+        <h2 style="text-align: center; color: var(--primary); font-family: 'Playfair Display', serif;">Explore Views</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">A collection of moments capturing the beauty of Tehri Dam, the lake, and our ropeway journey.</p>
+        
+        <div class="full-gallery-grid">
+            
+            <div class="gallery-item"><img src="3.jpg" alt="Tehri Ropeway Station"></div>
+            <div class="gallery-item"><img src="4.jpg" alt="Ropeway Over Lake"></div>
+            <div class="gallery-item"><img src="5.jpg" alt="Tehri Lake View"></div>
+            <div class="gallery-item"><img src="6.jpg" alt="High View"></div>
+            <div class="gallery-item"><img src="7.jpg" alt="Station Entrance"></div>
+            <div class="gallery-item"><img src="1.jpg" alt="Scenic Ride Main"></div>
+            <div class="gallery-item"><img src="2.jpg" alt="Cabin Close View"></div>
+
+            </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Tehri Ropeway Services | Tipari Madan Negi</p>
+    </footer>
+
+</body>
+</html>
