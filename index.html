@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tehri Ropeway - Tipari Madan Negi</title>
     <style>
-        /* FONTS */
+        /* --- CSS STYLES --- */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
-
-        /* COLORS */
         :root {
             --primary: #006994; /* Deep Teal Blue */
             --secondary: #48CAE4; /* Light Blue */
@@ -17,7 +15,6 @@
             --light: #f1faee;
             --text-grey: #444;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Poppins', sans-serif; color: var(--text-grey); background-color: var(--light); line-height: 1.6; }
@@ -71,27 +68,20 @@
         .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--secondary); }
         .icon { font-size: 3rem; margin-bottom: 1rem; }
 
-        /* TIMING & PRICE (GLASSMORPHISM) */
+        /* TIMING & PRICE */
         .info-section { 
             background: linear-gradient(135deg, var(--primary), var(--dark)); 
-            color: white; 
-            position: relative; overflow: hidden;
+            color: white; position: relative; overflow: hidden;
         }
         .info-section::before {
             content: ''; position: absolute; top: -100px; left: -100px; width: 300px; height: 300px;
             background: rgba(255,255,255,0.1); border-radius: 50%;
         }
-
         .info-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; margin-top: 3rem; }
-        
         .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 3rem 2rem; border-radius: 25px;
-            width: 350px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 3rem 2rem; border-radius: 25px;
+            width: 350px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); transition: 0.3s;
         }
         .glass-card:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.15); }
         .glass-card h3 { font-size: 1.5rem; margin-bottom: 2rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 2px; }
@@ -99,10 +89,21 @@
         .price-tag { font-size: 3.5rem; font-weight: 700; color: #ffadad; margin: 1rem 0; line-height: 1; }
         .note { font-size: 0.85rem; opacity: 0.9; font-style: italic; color: #caf0f8; margin-top: 1rem;}
 
+        /* MINI GALLERY ON HOME PAGE */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 3rem; }
+        .gallery-item { height: 250px; overflow: hidden; border-radius: 12px; cursor: pointer; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .view-all-btn-container { text-align: center; margin-top: 2rem; }
+        .view-all-btn {
+            display: inline-block; padding: 0.8rem 2rem; border: 2px solid var(--primary); color: var(--primary);
+            text-decoration: none; border-radius: 50px; font-weight: 600; transition: 0.3s;
+        }
+        .view-all-btn:hover { background: var(--primary); color: white; }
+
         /* CONTACT & MAP */
         .contact-container { display: flex; flex-wrap: wrap; gap: 3rem; justify-content: space-between; margin-top: 3rem; }
         .contact-left, .contact-right { flex: 1; min-width: 300px; }
-        
         .contact-form { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary); font-size: 0.9rem;}
@@ -116,7 +117,6 @@
             font-size: 1rem; cursor: pointer; transition: 0.3s; width: 100%; font-weight: 600;
         }
         .btn-submit:hover { background: var(--accent); }
-
         .contact-details { margin-top: 2rem; }
         .contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 1.5rem; font-size: 1rem; color: #555; }
         .contact-icon { 
@@ -124,7 +124,7 @@
             display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem;
         }
         .map-frame { width: 100%; height: 450px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: none;}
-
+        
         /* FOOTER */
         footer { background: var(--dark); color: white; text-align: center; padding: 3rem 1rem; margin-top: auto; }
         footer p { opacity: 0.7; font-size: 0.9rem; }
@@ -192,7 +192,6 @@
     <section class="section info-section" id="info">
         <h2 style="text-align: center; color: white;">Plan Your Visit</h2>
         <div class="info-container">
-            
             <div class="glass-card">
                 <h3>🕒 Operating Hours</h3>
                 <div class="time-block">
@@ -204,14 +203,24 @@
                     <span style="color: #eee;">8:30 AM to 5:00 PM</span>
                 </div>
             </div>
-
             <div class="glass-card" style="border-top: 5px solid var(--accent);">
                 <h3>🎟️ Ticket Fare</h3>
                 <div class="price-tag">₹150</div>
                 <p>Per Person (Two Way)</p>
                 <p class="note">*Children below 110cm height travel for FREE.</p>
             </div>
+        </div>
+    </section>
 
+    <section class="section" style="text-align: center;">
+        <h2>Glimpses of the Journey</h2>
+        <div class="gallery-grid" style="margin-top: 2rem;">
+            <div class="gallery-item"><img src="3.jpg" alt="Tehri Ropeway Station"></div>
+            <div class="gallery-item"><img src="6.jpg" alt="High View"></div>
+            <div class="gallery-item"><img src="1.jpg" alt="Scenic Ride"></div>
+        </div>
+        <div class="view-all-btn-container">
+            <a href="photos.html" class="view-all-btn">View All Photos →</a>
         </div>
     </section>
 
@@ -220,7 +229,6 @@
         <p style="text-align: center; margin-bottom: 3rem; color: #666;">Have questions? Reach out to us or navigate directly to the station.</p>
 
         <div class="contact-container">
-            
             <div class="contact-left">
                 <form class="contact-form">
                     <div class="form-group">
@@ -267,7 +275,6 @@
                 </iframe>
                 <p style="margin-top: 10px; font-size: 0.9rem; color: #666; text-align:right;">*Located just across the Tehri Lake.</p>
             </div>
-
         </div>
     </section>
 
