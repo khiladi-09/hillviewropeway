@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tehri Ropeway - Tipari Madan Negi</title>
     <style>
-        /* --- CSS STYLES --- */
+        /* --- CSS STYLES (UPDATED WITH PHOTO FIX) --- */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
         :root {
             --primary: #006994; /* Deep Teal Blue */
@@ -30,18 +30,23 @@
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 1px; }
         .nav-links a { margin-left: 2rem; text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--accent); }
+        .nav-links a.active { color: var(--accent); font-weight: 700; }
         .btn-book { background: var(--accent); color: white !important; padding: 0.6rem 1.8rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); }
         .btn-book:hover { transform: translateY(-2px); background: #d62828; }
 
-        /* HERO SECTION */
-        .hero {
-            height: 100vh;
+        /* PAGE HEADER & HERO */
+        .hero, .page-header {
+            height: 100vh; /* Default for home */
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('1.jpg'); 
             background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
             padding: 0 1rem;
         }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); line-height: 1.2; }
+        /* Sub-page header adjustment */
+        .page-header { height: 50vh; margin-top: 60px; background-image: url('3.jpg'); }
+
+        .hero h1, .page-header h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); line-height: 1.2; }
+        .page-header h1 { font-size: 3rem; }
         .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 2.5rem; font-weight: 300; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
         .cta-btn {
             background: var(--accent); color: white; padding: 1rem 2.8rem; text-decoration: none;
@@ -54,11 +59,20 @@
         .section { padding: 6rem 10%; }
         h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; position: relative; display: inline-block; }
         
-        /* ABOUT */
+        /* ABOUT SECTION - FIX APPLIED HERE */
         .about { display: flex; flex-wrap: wrap; gap: 4rem; align-items: center; }
         .about-text { flex: 1; min-width: 300px; }
-        .about-img { flex: 1; min-width: 300px; position: relative; }
-        .about-img img { width: 100%; border-radius: 20px; box-shadow: 20px 20px 0px rgba(0, 105, 148, 0.1); }
+        .about-img { 
+            flex: 1; min-width: 300px; position: relative; 
+            border-radius: 20px; /* Border radius moves to container */
+            overflow: hidden; /* Ensures image stays inside border */
+            box-shadow: 20px 20px 0px rgba(0, 105, 148, 0.1);
+        }
+        .about-img img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; /* --- THE MAGIC FIX --- Ensures photo fills space perfectly */
+            display: block; /* Removes small gap at bottom */
+        }
         .about-text p { margin-bottom: 1.5rem; color: #555; text-align: justify; }
 
         /* FEATURES */
@@ -89,11 +103,26 @@
         .price-tag { font-size: 3.5rem; font-weight: 700; color: #ffadad; margin: 1rem 0; line-height: 1; }
         .note { font-size: 0.85rem; opacity: 0.9; font-style: italic; color: #caf0f8; margin-top: 1rem;}
 
-        /* MINI GALLERY ON HOME PAGE */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 3rem; }
-        .gallery-item { height: 250px; overflow: hidden; border-radius: 12px; cursor: pointer; position: relative; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        /* GALLERY GRIDS - FIX APPLIED HERE */
+        .gallery-grid, .full-gallery-grid { display: grid; gap: 15px; margin-top: 3rem; }
+        .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .full-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+
+        .gallery-item { 
+            height: 250px; /* Fixed height for home gallery */
+            overflow: hidden; border-radius: 12px; cursor: pointer; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s;
+        }
+        /* Adjustment for full gallery page items */
+        .full-gallery-grid .gallery-item { height: 280px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .gallery-item:hover { transform: translateY(-5px); }
+
+        .gallery-item img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; /* --- THE MAGIC FIX --- Ensures photo fills space perfectly */
+            transition: 0.6s ease; display: block;
+        }
         .gallery-item:hover img { transform: scale(1.1); }
+        
         .view-all-btn-container { text-align: center; margin-top: 2rem; }
         .view-all-btn {
             display: inline-block; padding: 0.8rem 2rem; border: 2px solid var(--primary); color: var(--primary);
@@ -131,12 +160,15 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* Simplified for mobile */
+            .hero h1, .page-header h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } 
             .section { padding: 4rem 5%; }
             .about { flex-direction: column-reverse; }
+            .gallery-item { height: 200px; }
+            .full-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
         }
     </style>
+
 </head>
 <body>
 
